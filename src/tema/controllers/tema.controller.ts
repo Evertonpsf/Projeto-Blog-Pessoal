@@ -1,15 +1,14 @@
-
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Post, Put, UseGuards } from "@nestjs/common";
+import { TemaService } from "../services/tema.service";
+import { Tema } from "../entities/tema.entity";
+import { JwtAuthGuard } from "../../auth/guard/jwt-auth.guard";
 
 //problema no banco de dados = repository
 //problema no processamento = service
 //se ta chegando com erro no processamento = controller
 
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Post, Put } from "@nestjs/common";
-import { TemaService } from "../services/tema.service";
-import { Tema } from "../entities/tema.entity";
 
-
-
+@UseGuards(JwtAuthGuard)
 @Controller("/temas")  // esta classe é do tipo controladora
 export class TemaController {
 

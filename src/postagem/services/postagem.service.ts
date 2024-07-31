@@ -18,7 +18,8 @@ export class PostagemService {
     async findAll(): Promise<Postagem[]> {
         return await this.postagemRepository.find({
             relations: {
-                tema: true // tem que fazer isso para quando buscar as postagens exibir o tema que esta relacionado
+                tema: true,
+                usuario: true // tem que fazer isso para quando buscar as postagens exibir o tema que esta relacionado
             }
         });
     }
@@ -31,7 +32,8 @@ export class PostagemService {
                 id
             },
             relations: {
-                tema: true
+                tema: true,
+                usuario: true
             }
         })
 
@@ -50,7 +52,8 @@ export class PostagemService {
                 titulo: ILike(`%${titulo}%`) // usamos o ILike pois é insensitivo, assim busca o titulo independente da forma que esteja escrito, em maisculo ou minusculo.
             },
             relations: {
-                tema: true
+                tema: true,
+                usuario: true
             }
         })
 

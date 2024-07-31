@@ -2,9 +2,10 @@
 // essa classe gera instrucoes sql para criar a tabela dentro do banco.
 
 import { Transform, TransformFnParams } from "class-transformer";
-import { IsNotEmpty } from "class-validator";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Tema } from "../../tema/entities/tema.entity";
+import { IsNotEmpty } from "class-validator";
+import { Usuario } from "../../usuario/entities/usuario.entity";
 
 
 @Entity({ name: "tb_postagens" })// aqui esatamos criando a tabela personagens. as chaves serve para indicar que é uma propriedade.
@@ -33,5 +34,10 @@ export class Postagem {
     })
 
     tema: Tema; // essa relacao é do tipo asssociacao, o objeto da classe tema na classe postagem
+    
+    @ManyToOne(() => Usuario, (usuario) => usuario.postagem, {
+        onDelete: "CASCADE" // so tem esse delete aqui por que aqui é a classe filha, ela que tem que ser deletada e nao a principal
+    })
 
+    usuario: Usuario;
 }
