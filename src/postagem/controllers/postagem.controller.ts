@@ -2,15 +2,17 @@ import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPip
 import { PostagemService } from "../services/postagem.service";
 import { Postagem } from "../entities/postagem.entity";
 import { JwtAuthGuard } from "../../auth/guard/jwt-auth.guard";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 
 
 //problema no banco de dados = repository
 //problema no processamento = service
 //se ta chegando com erro no processamento = controller
 
-
+@ApiTags('Postagem')
 @UseGuards(JwtAuthGuard) // este metodos estamos fazendo a proteção
 @Controller("/postagens")  // esta classe é do tipo controladora
+@ApiBearerAuth()
 export class PostagemController {
 
     constructor(private readonly postagemService: PostagemService) { }

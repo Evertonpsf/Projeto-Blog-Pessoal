@@ -3,6 +3,7 @@ import { IsNotEmpty } from "class-validator";
 import { Column, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Entity } from "typeorm/decorator/entity/Entity";
 import { Postagem } from "../../postagem/entities/postagem.entity";
+import { ApiProperty } from "@nestjs/swagger";
 
 
 
@@ -11,14 +12,17 @@ export class Tema {
     // classe postagem, alguns atributos relacionado abaixo.
 
     @PrimaryGeneratedColumn() // essa é a chave primaria autoincremental. decorador tem que ficar encima do atributo, nao deixar espaço.
+    @ApiProperty()
     id: number;
 
     @Transform(({ value }: TransformFnParams) => value?.trim())
     @IsNotEmpty() // a descricao nao pode ser vazio, tem que ser digitado algo, aqui estamos obrigado o usuario a digitar.
     @Column({ length: 1000, nullable: false })
+    @ApiProperty()
     descricao: string;
 
     // este lado é um para muitos, ou seja muitas postagens possui um tema 
+    @ApiProperty() 
     @OneToMany(() => Postagem, (postagem) => postagem.tema) // aqui criamos a calsse bidirecional, que veio da outra classe postagem.entity
     postagem: Postagem[]
 }
